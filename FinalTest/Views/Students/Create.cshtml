@@ -1,0 +1,99 @@
+﻿@model FinalTest.Models.Vm.StudentVM
+
+@{
+    ViewBag.Title = "Create Student";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #btnplus {
+            margin-top: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">@ViewBag.Title</h2>
+        @using (Html.BeginForm("Create", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-container">
+                <h4 class="text-center">Student Details</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <!-- Student Name -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.StudentName, "Student Name", htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.StudentName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Age -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Age, "Age", htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Age, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Admission Status -->
+                <div class="mb-3 form-check">
+                    @Html.CheckBoxFor(model => model.IsAdmitted, new { @class = "form-check-input" })
+                    @Html.LabelFor(model => model.IsAdmitted, "Is Admitted", htmlAttributes: new { @class = "form-check-label" })
+                    @Html.ValidationMessageFor(model => model.IsAdmitted, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Picture Upload -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Picture, "Upload Picture", htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.PictureFile, new { @class = "form-control", type = "file" })
+                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Add More Subjects -->
+                <div id="Container" class="mb-3">
+                    <button type="button" class="btn btn-outline-primary mt-2" id="btnplus">Add More</button>
+                    <label class="form-label">Subjects</label>
+                    @Html.Action("AddSubject", "Students")
+                   
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+        <div class="text-center mt-3">
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("btnplus").addEventListener("click", function () {
+            // Add dynamic behavior for adding more subjects (AJAX or DOM manipulation)
+            const container = document.getElementById("Container");
+            const newSubjectField = document.createElement("div");
+            newSubjectField.className = "mb-3";
+            //newSubjectField.innerHTML = `
+            //    <input type="text" name="NewSubjects[]" class="form-control mt-2" placeholder="Enter Subject Name">
+            //`;
+            container.insertBefore(newSubjectField, this);
+        });
+    </script>
+</body>
+</html>
