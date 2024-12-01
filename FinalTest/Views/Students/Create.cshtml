@@ -65,10 +65,11 @@
 
                 <!-- Add More Subjects -->
                 <div id="Container" class="mb-3">
-                    <button type="button" class="btn btn-outline-primary mt-2" id="btnplus">Add More</button>
+                    @*<button type="button" class="btn btn-outline-primary mt-2" id="btnplus">Add More</button>*@
                     <label class="form-label">Subjects</label>
+                    <button type="button" class="btn btn-outline-primary mt-2" id="btnplus">Add More</button>
                     @Html.Action("AddSubject", "Students")
-                   
+
                 </div>
 
                 <!-- Submit Button -->
@@ -89,9 +90,6 @@
             const container = document.getElementById("Container");
             const newSubjectField = document.createElement("div");
             newSubjectField.className = "mb-3";
-            //newSubjectField.innerHTML = `
-            //    <input type="text" name="NewSubjects[]" class="form-control mt-2" placeholder="Enter Subject Name">
-            //`;
             container.insertBefore(newSubjectField, this);
         });
     </script>
